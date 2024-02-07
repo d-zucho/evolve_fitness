@@ -13,7 +13,7 @@ type Props = {
 };
 
 const Navbar = ({selectedPage, setSelectedPage}: Props) => {
-  const [menuToggled, setMenuToggled] = useState<boolean>(false)
+  const [menuToggled, setMenuToggled] = useState<boolean>(true)
   const flexBetween = "flex justify-between items-center";
   const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
 
@@ -43,21 +43,42 @@ const Navbar = ({selectedPage, setSelectedPage}: Props) => {
             </div>)
             : 
             (
-              // Mobile
+              // Mobile Hamburger Button
               <button
                 className="rounded-full bg-secondary-500 p-2 hover:bg-secondary-400 transition duration-500"
-                onClick={() => console.log("Open")}
+                onClick={() => setMenuToggled(!menuToggled)}
               >
                 <Bars3Icon className="h-6 w-6 text-white" />
               </button>
             )
-      
-
-          
           }
           </div>
         </div>
       </div>
+
+      {/* MOBILE NAV MENU */}
+      {
+        !isAboveMediumScreens && menuToggled && (
+          <div
+            className="fixed right-0 bottom-0 z-40 h-full w-[300px] bg-primary-100 drop-shadow-xl"
+          >
+            <div className="flex justify-end p-12">
+              <button onClick={() => setMenuToggled(!menuToggled)}>
+
+              <XMarkIcon className="h-6 w-6 text-gray-400"  />
+              </button>
+            </div>
+
+            {/* MENU ITEMS */}
+            <div className='ml-[33%] flex flex-col gap-10 text-2xl'>
+                <Link page="Home" selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
+                <Link page="Benefits" selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
+                <Link page="Our Classes" selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
+                <Link page="Contact Us" selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
+              </div>
+          </div>
+        )
+      }
     </nav>
   );
 };
