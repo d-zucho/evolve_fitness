@@ -19,7 +19,7 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
   const navbarBackground = isTopOfPage ? "" : "bg-primary-100 drop-shadow";
 
   // State for toggling the mobile menu
-  const [menuToggled, setMenuToggled] = useState<boolean>(true);
+  const [menuToggled, setMenuToggled] = useState<boolean>(false);
   return (
     <nav>
       <div
