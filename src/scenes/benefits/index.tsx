@@ -28,14 +28,12 @@ const index = ({ setSelectedPage }: Props) => {
         <motion.div
           className="md:my-5 md:w-3/5"
           initial={{ opacity: 0, x: -50 }}
-          // transition={{ duration: 2 }}
-          animate="visible"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.5 }}
           variants={{
-            hiddedn: { opacity: 0, x: -50 },
             visible: { opacity: 1, x: 0 },
+            hiddedn: { opacity: 0, x: -50 },
           }}
         >
           <HText>MORE THAN JUST A GYM</HText>
@@ -51,7 +49,7 @@ const index = ({ setSelectedPage }: Props) => {
           className="items-center justify-between gap-8 md:mt-5 md:flex"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.2 }}
           variants={container}
         >
           {benfitsData.map((benefit) => (
