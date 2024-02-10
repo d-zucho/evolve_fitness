@@ -23,14 +23,26 @@ const index = ({ setSelectedPage }: Props) => {
         onViewportEnter={() => setSelectedPage(SelectedPage.Benefits)}
       >
         {/* -- SECTION HEADER -- */}
-        <div className="md:my-5 md:w-3/5">
+        <motion.div
+          className="md:my-5 md:w-3/5"
+          initial={{ opacity: 0, x: -50 }}
+          // transition={{ duration: 2 }}
+          animate="visible"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.5 }}
+          variants={{
+            hiddedn: { opacity: 0, x: -50 },
+            visible: { opacity: 1, x: 0 },
+          }}
+        >
           <HText>MORE THAN JUST A GYM</HText>
           <p className="my-5 text-sm">
             We provide world class fitness equipment, trainers,a nd classesto
             help get you to your ultimate fitness goals with ease. All while
             proving we truly caer about each and every member.
           </p>
-        </div>
+        </motion.div>
 
         {/* -- BENEFITS -- */}
         <motion.div

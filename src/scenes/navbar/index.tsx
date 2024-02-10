@@ -6,11 +6,68 @@ import { SelectedPage } from "@/shared/types";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { useState } from "react";
 import ActionButton from "@/shared/ActionButton";
+import { AnimatePresence, motion } from "framer-motion";
+
 type Props = {
   selectedPage: SelectedPage;
   setSelectedPage: (value: SelectedPage) => void;
   isTopOfPage: boolean;
 };
+
+// ** Framer Motion Variants START **
+const navContainer = {
+  visible: {
+    //x: 0,
+    opacity: 1,
+    transition: {
+      x: { velocity: 100 },
+      duration: 0.3,
+    },
+  },
+  hidden: {
+    //x: -250,
+    opacity: 0,
+    transition: {
+      x: { velocity: 100 },
+      duration: 0.3,
+    },
+  },
+};
+
+const navList = {
+  visible: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.2,
+      staggerChildren: 0.07,
+    },
+  },
+  hidden: {
+    opacity: 0,
+    transition: {
+      staggerChildren: 0.05,
+      staggerDirection: -1,
+    },
+  },
+};
+
+const navItem = {
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      y: { stiffness: 1000, velocity: -100 },
+    },
+  },
+  hidden: {
+    y: 50,
+    opacity: 0,
+    transition: {
+      y: { stiffness: 1000, velocity: -100 },
+    },
+  },
+};
+// ** Framer Motion Variants END **
 
 const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
   // styles
@@ -78,39 +135,61 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
       </div>
 
       {/* MOBILE NAV MENU */}
-      {!isAboveMediumScreens && menuToggled && (
-        <div className="fixed bottom-0 right-0 z-40 h-full w-[300px] bg-primary-100 drop-shadow-xl">
-          <div className="flex justify-end p-12">
-            <button onClick={() => setMenuToggled(!menuToggled)}>
-              <XMarkIcon className="h-6 w-6 text-gray-400" />
-            </button>
-          </div>
+      <AnimatePresence>
+        {!isAboveMediumScreens && menuToggled && (
+          <motion.div
+            className="fixed bottom-0 right-0 z-40 h-full w-[300px] bg-primary-100 drop-shadow-xl"
+            initial="hidden"
+            animate={menuToggled ? "visible" : "hidden"}
+            exit="hidden"
+            variants={navContainer}
+          >
+            <div className="flex justify-end p-12">
+              <button onClick={() => setMenuToggled(!menuToggled)}>
+                <XMarkIcon className="h-6 w-6 text-gray-400" />
+              </button>
+            </div>
 
-          {/* MENU ITEMS */}
-          <div className="ml-[33%] flex flex-col gap-10 text-2xl">
-            <Link
-              page="Home"
-              selectedPage={selectedPage}
-              setSelectedPage={setSelectedPage}
-            />
-            <Link
-              page="Benefits"
-              selectedPage={selectedPage}
-              setSelectedPage={setSelectedPage}
-            />
-            <Link
-              page="Our Classes"
-              selectedPage={selectedPage}
-              setSelectedPage={setSelectedPage}
-            />
-            <Link
-              page="Contact Us"
-              selectedPage={selectedPage}
-              setSelectedPage={setSelectedPage}
-            />
-          </div>
-        </div>
-      )}
+            {/* MENU ITEMS */}
+            <motion.div
+              className="ml-[33%] flex flex-col gap-10 text-2xl"
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              variants={navList}
+            >
+              <motion.div variants={navItem}>
+                <Link
+                  page="Home"
+                  selectedPage={selectedPage}
+                  setSelectedPage={setSelectedPage}
+                />
+              </motion.div>
+              <motion.div variants={navItem}>
+                <Link
+                  page="Benefits"
+                  selectedPage={selectedPage}
+                  setSelectedPage={setSelectedPage}
+                />
+              </motion.div>
+              <motion.div variants={navItem}>
+                <Link
+                  page="Our Classes"
+                  selectedPage={selectedPage}
+                  setSelectedPage={setSelectedPage}
+                />
+              </motion.div>
+              <motion.div variants={navItem}>
+                <Link
+                  page="Contact Us"
+                  selectedPage={selectedPage}
+                  setSelectedPage={setSelectedPage}
+                />
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
