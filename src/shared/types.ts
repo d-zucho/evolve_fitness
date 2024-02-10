@@ -6,10 +6,10 @@ export enum SelectedPage {
   ContactUs = "contactus",
 }
 
-export type Benefit = {
+export interface Benefit {
   id: number;
-  icon: any;
-  title: React.ReactNode;
+  icon: JSX.Element;
+  title: string;
   descirption: string;
   link: string;
-};
+}
