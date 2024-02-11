@@ -12,7 +12,7 @@ type Props = {
 
 const ContactUs = ({ setSelectedPage }: Props) => {
   // style for inputs
-  const inputStyles = `mb-5 w-full rounded-lg bg-primary-300 px-5 py-3 placeholder-white`;
+  const inputStyles = `mb-5 w-full rounded-lg bg-primary-300 px-5 py-3 placeholder-white outline-none`;
 
   // react-hook-form
   const {
